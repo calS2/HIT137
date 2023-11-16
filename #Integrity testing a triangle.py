@@ -1,5 +1,5 @@
 #Integrity testing a triangle
-#enter the lenght of the corrosponding side below
+#enter the lenght of the corresponding side below
 a = input('Enter the first side of the triangle (a)') 
 b = input('Enter the second side of the triangle (b)')
 c = input('Enter the third side of the triangle (c)')
