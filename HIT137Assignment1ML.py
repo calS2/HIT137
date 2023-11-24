@@ -113,10 +113,12 @@ def draw(values,angles,type):
     height = values[1]*20+200
     screen.setup(width,height)
     screen.setworldcoordinates(0,0, width,height)
+    #Workaround to prevent crashing after second instance
     try:
         t = Turtle()
     except:
         t = Turtle()
+    #Continue Instructions
     t.up()
     t.goto((width/2)+(values[2]*20/2),height/6-(values[1]/3))
     t.down()
