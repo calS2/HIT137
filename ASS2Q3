@@ -1,0 +1,67 @@
+# Caesar cipher decryption function
+def decrypt(encrypted_text, key=13):  # Default key for ROT13
+    decrypted_text = ""
+    for char in encrypted_text:
+        if char.isalpha():
+            shifted = ord(char) - key
+            if char.islower():
+                if shifted < ord('a'):
+                    shifted += 26
+            elif char.isupper():
+                if shifted < ord('A'):
+                    shifted += 26
+            decrypted_text += chr(shifted)
+        else:
+            decrypted_text += char
+    return decrypted_text
+
+# Encrypted code (with ROT13)
+encrypted_code = """
+tybony_inenvoyr = 100
+zl_qvpg = {'xrl1': 'inyhr1', 'xrl2': 'inyhr2', 'xrl3': 'inyhr3'}
+
+qrs cebrff_ahzoref():
+    tybony tybony_inenvoyr
+    ybpny_inenvoyr = 5
+    ahzoref = [1, 2, 3, 4, 5]
+
+    juvyr ybpny_inenvoyr > 0:
+        vs ybpny_inenvoyr % 2 == 0:
+            ahzoref.erzbir(ybpny_inenvoyr)
+        ybpny_inenvoyr -= 1
+
+    ergeha ahzoref
+
+zl_frg = {1, 2, 3, 4, 5, 5, 4, 3, 2, 1}
+erfhvg = cebrff_ahzoref(ahzoref=zl_frg)
+
+qrs zbqvs1_qvpg():
+    ybpny_inenvoyr = 10
+    zl_qvpg['xrl4'] = ybpny_inenvoyr
+
+zbqvs1_qvpg(5)
+
+qrs hcqngr_tybony():
+    tybony tybony_inenvoyr
+    tybony_inenvoyr += 10
+
+sbe v va enatr(5):
+    cevag(v)
+    v += 1
+
+vs zl_frg vf abg Abar naq zl_qvpg['xrl4'] == 10:
+    cevag("Pbaqvgvba zrg!")
+
+vs 5 abg va zl_qvpg:
+    cevag("5 abg sbhaq va gur qvpgvbane!")
+
+cevag(tybony_inenvoyr)
+cevag(zl_qvpg)
+cevag(zl_frg)
+"""
+
+# Decrypt the encrypted code
+decrypted_code = decrypt(encrypted_code)
+
+# Print the decrypted code to verify it's correct
+print(decrypted_code)
