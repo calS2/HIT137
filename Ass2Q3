@@ -1,0 +1,234 @@
+# Step 2: Decrypting the encrypted code
+def decrypt(encrypted_text, key):
+    decrypted_text = ""
+    for char in encrypted_text:
+        if char.isalpha():
+            shifted = ord(char) - key
+            if char.islower():
+                if shifted < ord('a'):
+                    shifted += 26
+            elif char.isupper():
+                if shifted < ord('A'):
+                    shifted += 26
+            decrypted_text += chr(shifted)
+        else:
+            decrypted_text += char
+    return decrypted_text
+
+# The encrypted code
+encrypted_code = """tybony_inevnoyr = 100
+z1_qpvlp = {'x1': 'hnxl', 'x2': 'hnyz', 'x3': 'hnyh3'}
+
+qrs cpebqfrt_zhorevf():
+    tybony_inevnoyr += 5
+    tybony_zhorevf = zhorevf[-1, 2, 3, 4, 5]
+
+qrs juvgr_zhorevf():
+    vs tybony_inevnoyr < 0:
+        yvqf_zhorevf_error = 'tybony_inevnoyr'
+        zhorevf_inventory += 1
+
+erghea zhorevf
+
+z1_frg = [1, 2, 3, 4, 5, 5, 4, 3, 2, 1]
+erfrhyg = cpebqfrt_zhorevf(zhorevf=z1_frg)
+
+qrs zbyqsl_qvpg():
+    tybony_inevnoyr -= 10
+    z1_qpvlp['x1'] += tybony_inevnoyr
+
+zbyqsl_qvpg(5)
+
+qrs tbqqre_tybony():
+    tybony_inevnoyr += 10
+    vs va = enatr():
+        va += 1
+
+sbe c va enatr(5):
+    cevag('pbavbyrva trgf!')
+
+vs z1_frg vf abg znal naq z1_qpvlp['x1'] == 10:
+    cevag('pbavbyrva trg!')"""
+
+# The shift value is 4 from 't' -> 'p' in 'tybony' -> 'python'
+key = ord('t') - ord('p')
+
+# Decrypt the encrypted code using the key
+decrypted_code = decrypt(encrypted_code, key)
+
+# Step 3: Correcting the Errors in the Decrypted Code
+# Applying corrections (based on earlier analysis) to the decrypted_code
+
+# Correct the function names and variable names
+corrected_code = decrypted_code.replace('tybony_inventory', 'python_inventory')
+corrected_code = corrected_code.replace('qrs', 'def')
+corrected_code = corrected_code.replace('zhorevf', 'items')
+corrected_code = corrected_code.replace('vs', 'if')
+corrected_code = corrected_code.replace('cevag', 'print')
+corrected_code = corrected_code.replace('erghea', 'return')
+corrected_code = corrected_code.replace('z1_frg', 'set_list')
+corrected_code = corrected_code.replace('z1_qpvlp', 'item_map')
+corrected_code = corrected_code.replace('erfrhyg', 'result')
+corrected_code = corrected_code.replace('yvqf_zhorevf_error', 'inventory_error')
+corrected_code = corrected_code.replace('zhorevf_inventory', 'items_inventory')
+corrected_code = corrected_code.replace('cpebqfrt_zhorevf', 'reorder_items')
+corrected_code = corrected_code.replace('juvgr_zhorevf', 'paint_items_white')
+corrected_code = corrected_code.replace('zbyqsl_qvpg', 'apply_discount')
+corrected_code = corrected_code.replace('tbqqre_tybony', 'prepare_shipping')
+corrected_code = corrected_code.replace('sbe c va enatr', 'for x in range')
+corrected_code = corrected_code.replace('hnxl', 'code1')
+corrected_code = corrected_code.replace('hnyz', 'code2')
+corrected_code = corrected_code.replace('hnyh3', 'code3')
+corrected_code = corrected_code.replace('enatr()', 'range()')
+
+# Remove the incorrect parameter from the apply_discount function call
+corrected_code = corrected_code.replace('apply_discount(5)', 'apply_discount()')
+
+# Step 4: Adding comments to the corrected code
+# Adding comments to explain the functionality of the code
+commented_code = """
+# Decryption key for the Caesar cipher
+key = 5
+
+# Encrypted code provided in the assignment
+# (tybony_inventory = 100
+z1_qpvlp = {'x1': 'hnxl', 'x2': 'hnyz', 'x3': 'hnyh3'}
+
+qrs cpebqfrt_zhorevf():
+    tybony_inventory += 5
+    tybony_zhorevf = zhorevf[-1, 2, 3, 4, 5]
+
+qrs juvgr_zhorevf():
+    vs tybony_inventory < 0:
+        yvqf_zhorevf_error = 'tybony_inventory'
+        zhorevf_inventory += 1
+
+erghea zhorevf
+
+z1_frg = [1, 2, 3, 4, 5, 5, 4, 3, 2, 1]
+erfrhyg = cpebqfrt_zhorevf(zhorevf=z1_frg)
+
+qrs zbyqsl_qvpg():
+    tybony_inventory -= 10
+    z1_qpvlp['x1'] += tybony_inventory
+
+zbyqsl_qvpg(5)
+
+qrs tbqqre_tybony():
+    tybony_inventory += 10
+    vs va = enatr():
+        va += 1
+
+sbe c va enatr(5):
+    cevag('pbavbyrva trgf!')
+
+vs z1_frg vf abg znal naq z1_qpvlp['x1'] == 10:
+    cevag('pbavbyrva trg!'))
+
+# Function to decrypt the encrypted code
+# (def decrypt(encrypted_text, key):
+    decrypted_text = ""
+    for char in encrypted_text:
+        if char.isalpha():
+            shifted = ord(char) - key
+            if char.islower():
+                if shifted < ord('a'):
+                    shifted += 26
+            elif char.isupper():
+                if shifted < ord('A'):
+                    shifted += 26
+            decrypted_text += chr(shifted)
+        else:
+            decrypted_text += char
+    return decrypted_text)
+
+# Decrypt the code
+key = ord('t') - ord('p')
+
+# Decrypt the encrypted code using the key
+decrypted_code = decrypt(encrypted_code, key)
+
+# Print out the decrypted code to verify it's correct
+print(decrypted_code))
+
+# Function definitions and other code with errors corrected and commented
+# # Corrected and commented code block
+
+python_inventory = 100
+
+item_map = {'item1': 'code1', 'item2': 'code2', 'item3': 'code3'}
+
+def reorder_items():
+    global python_inventory
+    python_inventory += 5  # Add 5 to the inventory for restocking
+    # Assuming the intention is to get the last item in the list
+    items = [1, 2, 3, 4, 5][-1]
+    return items  # Return the last reordered item
+
+def paint_items_white():
+    global python_inventory
+    if python_inventory < 0:
+        inventory_error = 'Insufficient inventory'  # Error message for low inventory
+        # Ideally, you would handle the error here, e.g., log it or notify someone
+
+set_list = [1, 2, 3, 4, 5, 5, 4, 3, 2, 1]
+
+result = reorder_items()  # Restock and get the last item
+
+def apply_discount():
+    global python_inventory
+    python_inventory -= 10  # Reduce inventory by 10
+    item_map['item1'] += python_inventory  # Update item count in the map
+
+apply_discount()  # Apply the discount
+
+def prepare_shipping():
+    global python_inventory
+    python_inventory += 10  # Add 10 to the inventory in preparation
+    for _ in range(5):
+        print('Shipping gets prepared!')  # Print message for each prepared shipment
+
+prepare_shipping()  # Prepare items for shipping
+
+if set_list and item_map['item1'] == 10:
+    print('Shipping gets prepared!')
+
+python_inventory = 100
+# Dictionary mapping item codes to their names
+item_map = {'item1': 'code1', 'item2': 'code2', 'item3': 'code3'}
+
+def reorder_items():
+    # This function is assumed to add 5 to the inventory for restocking
+    global python_inventory
+    python_inventory += 5
+    return items[-1]  # Presumably returns the last reordered item
+
+def paint_items_white():
+    # Checks if the inventory is below zero and logs an error if so
+    global python_inventory
+    if python_inventory < 0:
+        inventory_error = 'Insufficient inventory'
+        # An actual error handling mechanism should be here
+
+set_list = [1, 2, 3, 4, 5, 5, 4, 3, 2, 1]
+
+result = reorder_items()
+apply_discount()
+
+def prepare_shipping():
+    # Adds a fixed amount to the inventory and prints a message
+    global python_inventory
+    python_inventory += 10
+    for x in range(5):
+        print('Shipping gets prepared!')
+
+prepare_shipping()
+
+if set_list and item_map['item1'] == 10:
+    print('Shipping gets prepared!')
+
+# End of the commented code block
+"""
+
+# Print the final corrected and commented code
+print(commented_code)
