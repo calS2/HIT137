@@ -1,4 +1,4 @@
-# Step 2: Decrypting the encrypted code
+# Step 1: Decrypting the encrypted code
 def decrypt(encrypted_text, key):
     decrypted_text = ""
     for char in encrypted_text:
@@ -56,7 +56,7 @@ key = ord('t') - ord('p')
 # Decrypt the encrypted code using the key
 decrypted_code = decrypt(encrypted_code, key)
 
-# Step 3: Correcting the Errors in the Decrypted Code
+# Step 2: Correcting the Errors in the Decrypted Code
 # Applying corrections (based on earlier analysis) to the decrypted_code
 
 # Correct the function names and variable names
@@ -84,7 +84,7 @@ corrected_code = corrected_code.replace('enatr()', 'range()')
 # Remove the incorrect parameter from the apply_discount function call
 corrected_code = corrected_code.replace('apply_discount(5)', 'apply_discount()')
 
-# Step 4: Adding comments to the corrected code
+# Step 3: Adding comments to the corrected code
 # Adding comments to explain the functionality of the code
 commented_code = """
 # Decryption key for the Caesar cipher
