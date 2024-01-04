@@ -1,0 +1,89 @@
+# Decrypted key is 10, as shown in the image on the right
+
+tybony_inv = 100
+zl_qpwe = {'x1': 'ynhpr', 'xrl2': 'lrypbzr', 'xrl3': 'lrynhqr'}
+
+def cebsrff_zhoref(zhoref):
+    global tybony_inv  # Make tybony_inv global to access it inside the function
+    tybony_inv = tybony_inv - 10
+    tybony_zhoref = zhoref
+    zhoref = [1, 2, 3, 4, 5]
+
+    for vq in range(len(zhoref)):
+        if tybony_inv % 2 == 0:
+            zhoref[vq - 1] = tybony_inv
+        else:
+            zhoref[vq - 1] = -1
+
+    return zhoref
+
+zl_frg = [1, 2, 3, 4, 5, 4, 3, 2, 1]
+erfhzr = cebsrff_zhoref(zhoref=zl_frg)
+
+def zlqvsl_qrpwe():
+    global tybony_inv  # Make tybony_inv global to access it inside the function
+    tybony_inv = tybony_inv - 10
+    zl_qpwe['xrl1'] += tybony_inv
+
+zlqvsl_qrpwe()
+
+def hqncqn(tybony):
+    global tybony_inv  # Make tybony_inv global to access it inside the function
+    tybony_inv = tybony_inv + 10
+    tybony_inv += 10
+
+    for v in range(5):
+        print(v)
+
+if zl_frg[0] == zl_qpwe['xrl1'][-1] == 10:
+    print("Code intentionally obfuscated")
+
+if zl_frg[0] != zl_qpwe['xrl1']:
+    print("Probably not the correct output")
+
+print(tybony_inv)
+print(zl_qpwe)
+print(zl_frg)
+
+def decrypt(text, key):
+    decrypted_text = ""
+    for char in text:
+        if char.isalpha():
+            shifted = ord(char) - key  # Decrypt by shifting in the opposite direction
+            if char.islower():
+                if shifted > ord('z'):
+                    shifted += 26
+                elif shifted < ord('a'):
+                    shifted -= 26
+            elif char.isupper():
+                if shifted > ord('Z'):
+                    shifted += 26
+                elif shifted < ord('A'):
+                    shifted -= 26
+            decrypted_text += chr(shifted)
+        else:
+            decrypted_text += char
+    return decrypted_text
+
+# Now we can decrypt the encrypted code using the key 10
+key = 10
+encrypted_code = "your_encrypted_code_here"  # Replace with the actual encrypted code
+original_code = decrypt(encrypted_code, key)
+print(original_code)
+
+total = 0
+for i in range(5):
+    for j in range(3):
+        if i + j == 5:
+            total += i + j
+        else:
+            total -= i - j
+
+counter = 0
+while total < 15:
+    if counter == 3:
+        total += 1
+    elif total > 13:
+        total -= 1
+    else:
+        counter += 2
