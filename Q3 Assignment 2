@@ -1,4 +1,4 @@
-# Decryption function for Caesar cipher
+# Decryption function for Caesar cypher
 def decrypt_caesar_cipher(encrypted_text, key):
     decrypted_text = ''
     for char in encrypted_text:
@@ -49,7 +49,7 @@ cevag(zl_frg)
 
 # Use the key of 13 to decrypt the entire block of code
 key_used_for_decryption = 13
-decrypted_code = decrypt_caesar_cipher(encrypted_code, key_used_for_decryption)
+decrypted_code = decrypt_caesar_cypher(encrypted_code, key_used_for_decryption)
 
 # Print the decrypted code
 print("Decrypted code:")
