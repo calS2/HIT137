@@ -1,0 +1,25 @@
+def string_splitter(s):
+    if len(s) < 16:
+        return "The length of the string must be at least 16."
+
+    numbers = []
+    letters = []
+
+    for char in s:
+        if char.isdigit():
+            numbers.append(char)
+        elif char.isalpha():
+            letters.append(char)
+
+    for i in range(len(numbers)):
+        if int(numbers[i]) % 2 == 0:
+            numbers[i] = str(ord(numbers[i]))
+
+    for i in range(len(letters)):
+        if letters[i].isupper():
+            letters[i] = str(ord(letters[i]))
+
+    return ''.join(numbers + letters)
+
+s = "56aAww1984sktr235270aYmn145ss785fsq31D0" # s = input("Enter a string to decode: ")
+print(string_splitter(s)) # Output: "554195652503550748152575653148a65wwsktra89mnssfsq68"
