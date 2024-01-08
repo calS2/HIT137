@@ -109,6 +109,7 @@ def update_global():
     global global_variable
     global_variable += 10
 
+
 if __name__ == "__main__":
     # Print heading for the corrected decrypted code
     print("Corrected decrypted code:")
@@ -142,5 +143,5 @@ if __name__ == "__main__":
 
     # End of script
     print("Script execution completed.")
-        print()  # Print an empty line for space
+    print()  # Print an empty line for space
     print("https://github.com/calS2/HIT137")
