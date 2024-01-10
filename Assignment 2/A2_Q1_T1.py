@@ -34,7 +34,7 @@ for filename, column_name in column_mapping.items():
     combine_texts.extend(texts)
 
 # Step 9: Join all texts into a single string
-combine_texts_final = '\n'.join(all_texts)
+combine_texts_final = '\n'.join(combine_texts)
 
 # Step 10: Write the combined text to a new .txt file
 output_file_path = 'output_text.txt'
