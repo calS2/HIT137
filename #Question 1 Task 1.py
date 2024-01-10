@@ -15,11 +15,10 @@ column_mapping = {
     'CSV2.csv': 'TEXT',
     'CSV3.csv': 'TEXT',
     'CSV4.csv': 'TEXT'
-    # could this be shortened to look for the word TEXT in all columns
 }
 
-# Step 4: Initialize an empty list to store text from all CSV files
-all_texts = []
+# Step 4: Create a list to store text from all CSV files
+combine_texts = []
 
 # Step 5: Loop through all CSV files in the extracted folder
 for filename, column_name in column_mapping.items():
@@ -31,19 +30,15 @@ for filename, column_name in column_mapping.items():
     # Step 7: Extract text from the specified column
     texts = df[column_name].tolist()
     
-    # Step 8: Append the text to the list
-    all_texts.extend(texts)
+    # Step 8: Copy the text to the list
+    combine_texts.extend(texts)
 
 # Step 9: Join all texts into a single string
-all_texts_combined = '\n'.join(all_texts)
+combine_texts_final = '\n'.join(all_texts)
 
 # Step 10: Write the combined text to a new .txt file
 output_file_path = 'output_text.txt'
 with open(output_file_path, 'w', encoding='utf-8') as output_file:
-    output_file.write(all_texts_combined)
+    output_file.write(combine_texts_final)
 
-# Step 11: Clean up - remove the extracted folder if needed
-# Comment the next line if you want to keep the extracted folder
-# shutil.rmtree('extracted_folder')
-
-print(f'Texts from all CSV files have been extracted and stored in {output_file_path}')
+print(f'Text extracted and stored in {output_file_path}')
