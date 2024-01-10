@@ -1,0 +1,130 @@
+def code_or_decode():
+    print("What would you like to do?\nEncode a phrase, decode a phrase or quit?")
+    repeat_program()
+
+def repeat_program():
+    repeat_program = input("To Encode type 'E', to Decode type 'D' or to Quit type 'Q' or press [enter]: ")
+    if repeat_program == "" or "Q" or "Quit":
+        return
+    if repeat_program == "E" or "e":
+        code_a_string()
+    if repeat_program == "D" or "d":
+        decode_a_string()
+    else:
+        repeat_program = input("To Encode type 'E', to Decode type 'D' or to Quit type 'Q' or press [enter]: ")
+
+def decode_a_string():
+    to_be_decoded_string()
+    decoded_string = ""
+    shift_key()
+    for char in to_be_decoded_string:
+        if char.isalpha():
+            shifted_char = chr((ord(char) - ord('a') + shift_key) % 26 + ord('a'))
+            decoded_string += shifted_char
+        elif char.isdigit():
+            decoded_string += str((int(char) - ord('0') + shift_key) % 10 + ord('0'))
+        else:
+            decoded_string += char
+
+    print(decoded_string)
+    correct_decode()
+
+def code_a_string():
+    to_be_coded_string()
+    print("Now we decide on a shift key to code the string you have entered")
+    shift_key()
+    coded_string = ""
+
+    for char in to_be_coded_string:
+        if char.isalpha():
+            shifted_char = chr((ord(char) - ord('a') + shift_key) % 26 + ord('a'))
+            coded_string += shifted_char
+        elif char.isdigit():
+            coded_string += str((int(char) - ord('0') + shift_key) % 10 + ord('0'))
+        else:
+            coded_string += char
+    
+    print(coded_string)
+    sufficiently_coded()
+
+def to_be_coded_string():
+    print("Running encoder...")
+    to_be_coded_string = input("Enter a string or enter 'Sample' for a preset phrase: ")
+    if to_be_coded_string == "":
+        to_be_coded_string = input("Enter a string of words or numbers or enter 'Sample' for a preset phrase: ")        
+    if to_be_coded_string == "Sample" or "sample":
+        to_be_coded_string = "The more I read, the more I learn, the more I discover I know nothing."
+        print("The coded string is: "+to_be_coded_string)
+        return
+    else:
+        return
+    
+def to_be_decoded_string():
+    print("Running decoder...")
+    to_be_decoded_string = input("Enter a coded phrase or enter 'Sample' for a preset phrase: ")
+    if to_be_decoded_string == "":
+        to_be_decoded_string = input("Enter a string of words or numbers or enter 'Sample' for a preset phrase: ")        
+    if to_be_decoded_string == "Sample" or "sample":
+        to_be_decoded_string = "VZ KRYSVFU VZCNGVRAG NAQ N YVGGYR VAFRPHER V ZNXR ZVFGNXRF V NZ BHG BS PBAGEBY NAQNG GVZRF UNEQ GB UNAQYR OHG VS LBH PNAG UNAQYR ZR NG ZL JBEFG GURA LBH FHER NF URYYQBAG QRFREIR ZR NG ZL ORFG ZNEVYLA ZBAEBR"
+        print("The coded phrase is "+to_be_decoded_string)
+        return
+    else:
+        print("The coded phrase is "+to_be_decoded_string)
+        return
+
+def correct_decode():
+    correct_decode = input("Has the key worked and the quote decoded? (Y or N)")
+    if correct_decode == "Yes" or "yes" or "y" or "Y":
+        print("Hooray, well done!")
+        print("Would you like to decode something, encode something, or end the program?")
+        repeat_program()
+    if correct_decode == "No" or "no" or "n" or "N":
+        retry_key()
+    else:
+        correct_decode == input("Was the quote decoded successfully? Yes or No: ")
+
+def sufficiently_coded():
+    sufficiently_coded = input("Are you happy with the encoded phrase? (Y or N)")
+    if sufficiently_coded == "Yes" or "yes" or "y" or "Y":
+        print("Excellent!")
+        print("Would you like to try to decode a phrase, encode something, or end the program?")
+        repeat_program()
+    if sufficiently_coded == "No" or "no" or "n" or "N":
+        retry_key()
+    else:
+        sufficiently_coded == input("Are you happy with the encoded phrase? (Y or N)")
+
+def retry_key():
+    retry_key = input("Want to retry the decoding with a different code? (Y or N)")
+    if retry_key == "Yes" or "yes" or "y" or "Y":
+        shift_key()
+    if retry_key == "No" or "no" or "n" or "N":
+        return
+    else:
+        retry_key = input("Want to retry the decoding with a different code? (Y or N)")   
+
+def shift_key():
+    shift_key = input("Enter a number for the shift key or enter Secret or S for a random shift key: ")
+    while shift_key != "":
+        if shift_key == "Secret" or "S":
+
+##            shift_key = random
+
+            return
+        else:
+            try: 
+                shift_key =int(shift_key)
+                if shift_key < 0 and shift_key > 26:
+                    print("Please enter a whole number between 0 and 26 (LT0,GT26)")
+                    shift_key = input("Decypher key: ")
+                else:
+                    return
+            except TypeError:
+                    print("Please enter a whole number between 0 and 26 (TE)")
+                    shift_key = input("Decypher key: ")
+    else:
+        print("Please set a decypher key by entering a number between 0 and 26 (ELSE)")
+        shift_key = input("Decypher key: ")
+
+
+code_or_decode()
