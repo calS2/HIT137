@@ -16,7 +16,7 @@ def decrypt_caesar_cypher(encrypted_text, key):
     return decrypted_text
 
 
-# Function to find key
+# Function to find decryption key
 def key():
     total = 0
     for i in range(5):
