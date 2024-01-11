@@ -37,7 +37,7 @@ def key():
     return total
 
 
-# Print the decryption key result to the terminal
+# Print the decryption key to the terminal
 print(f"The decryption key is: {key()}")
 print()  # Print an empty line for space
 
