@@ -1,9 +1,9 @@
 from collections import Counter
 
-with open('output_text.txt', 'r', encoding='utf-8') as f:
+with open('cleaned_output_text.txt', 'r', encoding='utf-8') as f:
     text = f.read()
 
-# Tokenize the text and count occurrences
+#Count occurrences
 word_counts = Counter(text.split())
 
 # Get the top 30 common words

@@ -37,7 +37,7 @@ for filename, column_name in column_mapping.items():
 combine_texts_final = '\n'.join(combine_texts)
 
 # Step 10: Write the combined text to a new .txt file
-output_file_path = 'output_text.txt'
+output_file_path = 'combined_output_text.txt'
 with open(output_file_path, 'w', encoding='utf-8') as output_file:
     output_file.write(combine_texts_final)
 
