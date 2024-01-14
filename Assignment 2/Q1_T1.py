@@ -52,3 +52,4 @@ with open(cleaned_output_file_path, 'w', encoding='utf-8') as output_file:
     output_file.write(combine_texts_cleaned)
 
 print(f'Cleaned and lowercase text extracted and stored in {cleaned_output_file_path}')
+print("https://github.com/calS2/HIT137")

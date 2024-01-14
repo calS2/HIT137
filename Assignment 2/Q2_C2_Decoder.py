@@ -34,3 +34,4 @@ s = "56aAww1984sktr235270aYmn145ss785fsq31D0"
     # s = input("Enter a string to decode: ")
 print(string_splitter(s)) 
     # Output: "554195652503550748152575653148a65wwsktra89mnssfsq68"
+print("https://github.com/calS2/HIT137")
