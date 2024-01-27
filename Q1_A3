@@ -1,0 +1,79 @@
+import torch
+from torchvision import models, transforms
+from tkinter import filedialog, messagebox, Frame, Button, Tk
+from PIL import Image
+import json
+
+# Path to the saved VGG16 model state
+MODEL_PATH = 'vgg16_model.pth'
+
+# Define the device
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+# Initialise and load the pre-trained VGG16 model
+model = models.vgg16()
+model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+model = model.to(device)
+model.eval()
+
+# Define the image transformations
+data_transforms = transforms.Compose([
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+])
+
+# Path to the ImageNet class index JSON file
+CLASS_INDEX_PATH = r'C:\Users\calvi\Desktop\Classification\imagenet_class_index.json'
+
+# Load ImageNet class index
+with open(CLASS_INDEX_PATH) as f:
+    imagenet_classes = json.load(f)
+
+# Tkinter GUI
+class Application(Frame):
+    def __init__(self, master=None):
+        super().__init__(master)
+        self.master = master
+        self.pack()
+        self.create_widgets()
+
+    def create_widgets(self):
+        self.classify_button = Button(self)
+        self.classify_button["text"] = "Classify Image"
+        self.classify_button["command"] = self.classify_image
+        self.classify_button.pack(side="top")
+
+        self.quit_button = Button(self, text="QUIT", fg="red",
+                                  command=self.master.destroy)
+        self.quit_button.pack(side="bottom")
+
+    def classify_image(self):
+        # Let the user select an image file
+        image_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.jpeg;*.png")])
+        if not image_path:
+            return
+
+        # Open and preprocess the image
+        image = Image.open(image_path).convert('RGB')
+        image_tensor = data_transforms(image).unsqueeze(0).to(device)
+
+        # Make a prediction
+        with torch.no_grad():
+            outputs = model(image_tensor)
+            _, predicted = torch.max(outputs, 1)
+        
+        # Get the predicted class name
+        class_name = imagenet_classes[str(predicted.item())][1]
+
+        # Show the classification result
+        messagebox.showinfo("Classification Result", f"Predicted class: {class_name}")
+
+def main():
+    root = Tk()
+    app = Application(master=root)
+    app.mainloop()
+
+if __name__ == "__main__":
+    main()
