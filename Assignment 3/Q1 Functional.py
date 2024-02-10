@@ -3,9 +3,10 @@ from tkinter import filedialog
 from PIL import Image
 import torch
 from torchvision import models, transforms
+import os
 
 # Load ImageNet class labels
-def load_class_labels(filename="imagenet_classes.txt"):
+def load_class_labels(filename):
     with open(filename) as f:
         labels = [line.strip() for line in f.readlines()]
     return labels
@@ -79,9 +80,14 @@ class ImageClassifierApp(tk.Tk):
             self.label.config(text="No image loaded.")
 
 if __name__ == "__main__":
-    class_labels = load_class_labels(r"C:\Users\corey\Desktop\imagenet_classes.txt")  # Make sure the file path is correct
+    # Get the directory of the current script
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+
+    # Construct the full path to the class labels file
+    class_labels_path = os.path.join(script_dir, "imagenet_classes.txt")
+
+    class_labels = load_class_labels(class_labels_path)
     app = ImageClassifierApp(class_labels)
     app.mainloop()
-
 
 
