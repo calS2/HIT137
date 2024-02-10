@@ -7,7 +7,7 @@ from level import Level
 white = (255,255,255)
 black = (0,0,0)
 red = (255,0,0)
-screen = pygame.display.set_mode(resolution)
+screen = pygame.display.set_mode((screen_width,screen_height))
 clock = pygame.time.Clock()
 level = Level(level_map,screen)
 
