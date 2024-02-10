@@ -18,9 +18,7 @@ while True:
             sys.exit()
 
     screen.fill(white)
-    level.run(
-        
-    )
+    level.run()
 
     pygame.display.flip()
     clock.tick(60)
