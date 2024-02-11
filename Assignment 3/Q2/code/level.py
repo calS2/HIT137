@@ -5,9 +5,10 @@ from player import Player
 from enemy import Enemy
 
 class Level:
-    def __init__(self,currentlevel,surface,create_menu):
+    def __init__(self,currentlevel,surface,create_menu, change_coins,ui):
         self.score = 0
         # level setup
+        self.ui = ui
         self.display_surface = surface
         self.currentlevel = currentlevel
         level_data = levels[currentlevel]
@@ -16,7 +17,11 @@ class Level:
         self.new_max_level = level_data['unlock']
         self.create_menu = create_menu
         self.world_shift = 0
-
+        #ui setup
+        self.change_coins = change_coins
+        self.collected_coins = 0
+        self.curr_health = 100
+        self.max_health = 100
 
     def setup_level(self,layout):
         #Containers
@@ -25,7 +30,7 @@ class Level:
         self.player = pygame.sprite.GroupSingle()
         self.enemy = pygame.sprite.Group()
         self.bound = pygame.sprite.Group()
-
+        
         for row_index,row in enumerate(layout):
             for col_index,cell in enumerate(row):
                 x = col_index * tile_size
@@ -37,7 +42,7 @@ class Level:
                     tile = Tile((x,y),tile_size,"coin")
                     self.coins.add(tile)
                 if cell == "P":
-                    player_sprite = Player((x,y))
+                    player_sprite = Player((x,y),self.health_update)
                     self.player.add(player_sprite)
                 if cell == 'E':	
                     enemy_sprite = Enemy((x,y),"minion")
@@ -83,11 +88,16 @@ class Level:
             if sprite.rect.colliderect(player.rect) and sprite.collectable==True:
                self.coins.remove(sprite)
                self.score += 1
+               self.collected_coins +=1
+               self.change_coins(1)
 
     def enemy_collision_reverse(self):
         for enemy in self.enemy.sprites():
             if pygame.sprite.spritecollide(enemy,self.bound,False):
                 enemy.reverse()
+
+    def health_update(self, damage):
+        self.curr_health += damage
 
     def enemy_collisions(self):
         enemy_collisions = pygame.sprite.spritecollide(self.player.sprite,self.enemy,False)
@@ -105,7 +115,6 @@ class Level:
                     player = self.player.sprite
                     player.get_damage()
 
-
     #Level state Controller
     def levelstate(self):
         #check Death State
@@ -118,6 +127,7 @@ class Level:
         player = self.player.sprite
         if player.status == 'dead':
             print("you are dead")
+            self.change_coins(-self.collected_coins)
             self.create_menu(self.currentlevel,0)       
         if len(self.coins) == 0 and len(self.enemy) == 0:
             self.create_menu(self.currentlevel,self.new_max_level)
@@ -168,6 +178,7 @@ class Level:
         self.coins.draw(self.display_surface)
         self.bound.update(self.world_shift)
         self.bound.draw(self.display_surface)
+        self.ui.show_health(self.curr_health,self.max_health)
         self.scroll_x()
 
 
@@ -184,6 +195,5 @@ class Level:
         self.enemy_collision_reverse()
         self.enemy.draw(self.display_surface)
         self.enemy_collisions()
-
         #level state
         self.levelstate()

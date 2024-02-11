@@ -3,7 +3,7 @@ from support import import_folder
 from settings import screen_height
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self,pos):
+    def __init__(self,pos,health_update):
         super().__init__()
         self.import_character_assets()
         self.frame_index = 0
@@ -26,6 +26,7 @@ class Player(pygame.sprite.Sprite):
         self.on_right = False
 
         #heath status
+        self.health_update = health_update
         self.max_health = 100
         self.cur_health = 100
         self.invincible = False
@@ -90,6 +91,7 @@ class Player(pygame.sprite.Sprite):
     
     def get_damage(self):
         if not self.invincible:
+            self.health_update(-50)
             self.cur_health -= 50
             self.invincible = True
             self.hurt_time = pygame.time.get_ticks()
