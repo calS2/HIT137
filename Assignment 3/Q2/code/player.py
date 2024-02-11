@@ -26,8 +26,8 @@ class Player(pygame.sprite.Sprite):
 
 
     def import_character_assets(self):
-        character_path = '../graphics/character/'
-        self.animations = {'idle':[],'run':[],'jump':[],'fall':[]}
+        character_path = 'Assignment 3\\Q2\\graphics\\character2\\'
+        self.animations = {'idle':[],'run':[],'jump':[]}
 
         for animation in self.animations.keys():
             full_path = character_path + animation
@@ -75,7 +75,7 @@ class Player(pygame.sprite.Sprite):
         if self.direction.y < 0:
             self.status = 'jump'
         elif self.direction.y > 1:
-            self.status = 'fall'
+            self.status = 'idle'
         else:
             if self.direction.x != 0:
                 self.status = 'run'
