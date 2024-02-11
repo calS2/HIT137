@@ -1,12 +1,18 @@
 import pygame
 
 class Tile(pygame.sprite.Sprite):
-    def __init__(self,pos,size):
+    def __init__(self,pos,size,kind):
         super().__init__()
-        self.image = pygame.image.load("Assignment 3\Q2\graphics\Tile_36.png")
+        if kind == "wall":
+            self.image = pygame.image.load("Assignment 3\Q2\graphics\Tile_36.png").convert_alpha()
+            self.rect = self.image.get_rect(topleft = pos)
+        elif kind == "coin":
+            self.image = pygame.image.load('Assignment 3\Q2\graphics\Coin32.png').convert_alpha()
+            self.rect = self.image.get_rect(topleft = pos)
+            self.collectable = True
         #self.image.fill('grey')
         #self.image = pygame.Surface((size,size))
-        self.rect = self.image.get_rect(topleft = pos)
+        
 
     def update(self,x_shift):
         self.rect.x += x_shift

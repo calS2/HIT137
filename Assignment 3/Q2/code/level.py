@@ -13,6 +13,7 @@ class Level:
 
     def setup_level(self,layout):
         self.tiles = pygame.sprite.Group()
+        self.coins = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
 
         for row_index,row in enumerate(layout):
@@ -20,8 +21,11 @@ class Level:
                 x = col_index * tile_size
                 y = row_index * tile_size
                 if cell == "X":
-                    tile = Tile((x,y),tile_size)
+                    tile = Tile((x,y),tile_size,"wall")
                     self.tiles.add(tile)
+                if cell == "C":
+                    tile = Tile((x,y),tile_size,"coin")
+                    self.coins.add(tile)
                 if cell == "P":
                     player_sprite = Player((x,y))
                     self.player.add(player_sprite)
@@ -40,6 +44,15 @@ class Level:
         else:
             self.world_shift = 0
             player.speed = 8
+
+    def coin_collection(self):
+        player = self.player.sprite
+        print(self.coins.sprites())
+        for sprite in self.coins.sprites():
+            if sprite.rect.colliderect(player.rect):
+                print('touching')
+                self.coins.sprites().remove(sprite)
+
 
     def horizontal_movement_collision(self):
         player = self.player.sprite
@@ -78,10 +91,13 @@ class Level:
         #level tiles
         self.tiles.update(self.world_shift)
         self.tiles.draw(self.display_surface)
+        self.coins.update(self.world_shift)
+        self.coins.draw(self.display_surface)
         self.scroll_x()
 
         #player
         self.player.update()
+        self.coin_collection()
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
         self.player.draw(self.display_surface)
