@@ -1,11 +1,16 @@
 import pygame 
-from tiles import AnimatedTile
+from support import import_folder
 from random import randint
 
-class Enemy(AnimatedTile):
-	def __init__(self,size,x,y):
-		super().__init__(size,x,y,'graphics/enemy/run')
-		self.rect = self.image.get_rect(topleft = (x,y))
+class Enemy(pygame.sprite.Sprite):
+	def __init__(self,pos):
+		super().__init__()
+		print("Heya")
+		self.frames = import_folder('graphics/enemy/run')
+		print("Hello World")
+		self.frame_index = 0
+		self.image = self.frames[self.frame_index]
+		self.rect = self.image.get_rect(topleft = pos)
 		self.speed = randint(3,5)
 
 	def move(self):
@@ -18,6 +23,12 @@ class Enemy(AnimatedTile):
 	def reverse(self):
 		self.speed *= -1
 
+	def animate(self):
+		self.frame_index += 0.15
+		if self.frame_index >= len(self.frames):
+			self.frame_index = 0
+		self.image = self.frames[int(self.frame_index)]
+		
 	def update(self,shift):
 		self.rect.x += shift
 		self.animate()

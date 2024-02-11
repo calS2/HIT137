@@ -39,7 +39,7 @@ class Level:
                     player_sprite = Player((x,y))
                     self.player.add(player_sprite)
                 if cell == 'E':	
-                    enemy_sprite = Enemy(tile_size,x,y)
+                    enemy_sprite = Enemy((x,y))
                     self.enemy.add(enemy_sprite) 
                 if cell == 'B':
                     tile = Tile((x,y),tile_size,"bound")
@@ -49,10 +49,10 @@ class Level:
         player = self.player.sprite
         player_x = player.rect.centerx
         direction_x = player.direction.x
-        if player_x < screen_width / 4 and direction_x < 0:
+        if player_x < screen_width * (1 / 3) and direction_x < 0:
             self.world_shift = 8
             player.speed = 0
-        elif player_x > screen_width * (3 / 4) and direction_x > 0:
+        elif player_x > screen_width * (2 / 3) and direction_x > 0:
             self.world_shift = -8
             player.speed = 0
         else:
@@ -75,7 +75,7 @@ class Level:
         enemy_collisions = pygame.sprite.spritecollide(self.player.sprite,self.enemy,False)
         if enemy_collisions:
             for enemy in enemy_collisions:
-                enemy_center = enemy.rect.center
+                enemy_center = enemy.rect.centery
                 enemy_top = enemy.rect.top
                 player_bottom = self.player.sprite.rect.bottom
                 if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:
