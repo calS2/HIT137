@@ -6,11 +6,14 @@ from torchvision import models, transforms
 import os
 import pyttsx3
 
+# Load the class labels
 def load_class_labels(filename):
     with open(filename) as f:
         labels = [line.strip() for line in f.readlines()]
     return labels
 
+
+# Create a base class to show polymorphism
 class BaseClassifier:
     def __init__(self, class_labels):
         self.class_labels = class_labels
@@ -18,6 +21,7 @@ class BaseClassifier:
     def classify_image(self, image):
         raise NotImplementedError("Subclass must implement abstract method")
 
+# Create a class for VGG16 Classiffier
 class VGG16Classifier(BaseClassifier):
     def __init__(self, class_labels):
         super().__init__(class_labels)
@@ -37,6 +41,7 @@ class VGG16Classifier(BaseClassifier):
             _, predicted = outputs.max(1)
             return self.class_labels[predicted.item()]
 
+# Create a class for ResNet50 Classiffier
 class ResNet50Classifier(BaseClassifier):
     def __init__(self, class_labels):
         super().__init__(class_labels)
@@ -56,6 +61,7 @@ class ResNet50Classifier(BaseClassifier):
             _, predicted = outputs.max(1)
             return self.class_labels[predicted.item()]
 
+# Image Loader class to load and store the image
 class ImageLoader:
     def load_image(self, filepath):
         try:
@@ -65,6 +71,7 @@ class ImageLoader:
             print("Error in loading the image.")
             return None
 
+# Tkinter App for UI
 class ImageClassifierApp(tk.Tk):
     def __init__(self, class_labels):
         super().__init__()
@@ -76,7 +83,7 @@ class ImageClassifierApp(tk.Tk):
         self.classifier = VGG16Classifier(class_labels)  # Set VGG16 as the default classifier
         self.create_widgets()
         self.add_instructions()
-
+    # Create the frame and buttons for the app
     def create_widgets(self):
         top_frame = tk.Frame(self)
         top_frame.pack(side=tk.TOP, fill=tk.X)
@@ -107,7 +114,7 @@ class ImageClassifierApp(tk.Tk):
 
         self.image_canvas = tk.Canvas(bottom_frame, bg='gray')
         self.image_canvas.pack(fill=tk.BOTH, expand=True)
-
+    # Add instructions on the screen for the user
     def add_instructions(self):
         instructions_text = (
             "Instructions:\n"
@@ -120,6 +127,7 @@ class ImageClassifierApp(tk.Tk):
         instructions_message = tk.Message(self, text=instructions_text, width=400, bg='white', fg='black')
         instructions_message.pack(side=tk.TOP, padx=10, pady=10)
 
+    # Upload the image
     def upload_image(self):
         file_path = filedialog.askopenfilename()
         if file_path:
@@ -131,6 +139,7 @@ class ImageClassifierApp(tk.Tk):
             else:
                 self.result_label.config(text="Failed to load image.")
 
+    # Classify the image
     def classify_image(self):
         if self.image:
             class_name = self.classifier.classify_image(self.image)
@@ -140,6 +149,7 @@ class ImageClassifierApp(tk.Tk):
             self.result_label.config(text="No image loaded.")
             self.speak_button["state"] = tk.DISABLED
 
+    # Speak the result
     def speak_result(self):
         class_name = self.result_label.cget("text").replace("Analysed Image Contains: ", "")
         if class_name:
@@ -147,11 +157,11 @@ class ImageClassifierApp(tk.Tk):
             engine.say(class_name)
             engine.runAndWait()
 
+    # Update the image preview
     def update_image_preview(self):
         if self.image:
         # Clear the canvas
             self.image_canvas.delete("all")
-
         # Calculate the new size to fit the canvas while maintaining aspect ratio
         canvas_width = self.image_canvas.winfo_width()
         canvas_height = self.image_canvas.winfo_height()
@@ -159,11 +169,9 @@ class ImageClassifierApp(tk.Tk):
         scale_width = canvas_width / img_width
         scale_height = canvas_height / img_height
         scale = min(scale_width, scale_height)
-
         # Resize the image with high-quality resampling
         img_resized = self.image.resize((int(img_width * scale), int(img_height * scale)), Image.Resampling.LANCZOS)
         self.photo = ImageTk.PhotoImage(img_resized)
-
         # Center the image on the canvas
         img_width, img_height = img_resized.size
         x_position = (canvas_width - img_width) // 2
@@ -172,7 +180,7 @@ class ImageClassifierApp(tk.Tk):
         # Display the image on the canvas
         self.image_canvas.create_image(x_position, y_position, image=self.photo, anchor=tk.NW)
 
-
+    # Update the classifier
     def update_classifier(self, event=None):
         classifier_name = self.classifier_option.get()
         if classifier_name == "VGG16":
@@ -181,6 +189,7 @@ class ImageClassifierApp(tk.Tk):
             self.classifier = ResNet50Classifier(self.class_labels)
         self.result_label.config(text="Classifier updated to " + classifier_name)
 
+# Main function to run the app
 if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.realpath(__file__))
     class_labels_path = os.path.join(script_dir, "imagenet_classes.txt")
