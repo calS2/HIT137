@@ -12,6 +12,7 @@ def load_class_labels(filename):
         labels = [line.strip() for line in f.readlines()]
     return labels
 
+
 # Create a base class to show polymorphism
 class BaseClassifier:
     def __init__(self, class_labels):
