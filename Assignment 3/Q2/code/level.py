@@ -5,7 +5,7 @@ from player import Player
 
 class Level:
     def __init__(self,level_data,surface):
-
+        self.score = 0
         # level setup
         self.display_surface = surface
         self.setup_level(level_data)
@@ -50,7 +50,19 @@ class Level:
         for sprite in self.coins.sprites():
             if sprite.rect.colliderect(player.rect) and sprite.collectable==True:
                self.coins.remove(sprite)
+               self.score += 1
+               print(self.score)
 
+    def levelstate(self):
+        player = self.player.sprite
+        if player.status == 'dead':
+            #code to restart the game
+            pass
+        if len(self.coins) == 0:
+            #code to go to next level
+            pass
+        else:
+            print("Coins to collect: " + str(len(self.coins)))
 
     def horizontal_movement_collision(self):
         player = self.player.sprite
@@ -99,3 +111,6 @@ class Level:
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
         self.player.draw(self.display_surface)
+
+        #level state
+        self.levelstate()
