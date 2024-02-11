@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.on_right = False
 
     def import_character_assets(self):
-        character_path = 'graphics/character2/'
+        character_path = "graphics/character2/"
         self.animations = {'idle':[],'run':[],'jump':[]}
 
         for animation in self.animations.keys():

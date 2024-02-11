@@ -17,6 +17,7 @@ class Level:
         self.create_menu = create_menu
         self.world_shift = 0
 
+
     def setup_level(self,layout):
         #Containers
         self.tiles = pygame.sprite.Group()
@@ -157,6 +158,9 @@ class Level:
         self.coins.update(self.world_shift)
         self.coins.draw(self.display_surface)
         self.scroll_x()
+
+        #UI
+        #self.display_surface.blit(self.text_surf,self.text_rect)
 
         #player
         self.player.update()

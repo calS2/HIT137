@@ -5,7 +5,7 @@ class Tile(pygame.sprite.Sprite):
     def __init__(self,pos,size,kind):
         super().__init__()
         if kind == "wall":
-            self.image = pygame.image.load("graphics/Tile_36.png").convert_alpha()
+            self.image = pygame.image.load('graphics/Tile_36.png').convert_alpha()
             self.rect = self.image.get_rect(topleft = pos)
             self.collectable = False
         elif kind == "coin":

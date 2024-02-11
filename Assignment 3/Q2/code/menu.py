@@ -11,6 +11,7 @@ class Button(pygame.sprite.Sprite):
         else:
             self.image.fill('grey')
         self.rect = self.image.get_rect(center = pos)
+        
 
 class Menu:
     def __init__(self, start_level, max_level,surface,create_level):
@@ -26,14 +27,17 @@ class Menu:
         self.buttons = pygame.sprite.Group()
         
         for index, data in enumerate(levels.values()):
+            
+            self.font = pygame.font.Font(None,40)
+            level_text = data['text']
+            self.text_surf = self.font.render(level_text,True,'White')
+            self.text_rect = self.text_surf.get_rect(center = (data['pos']))
+           
             if index <= self.max_level:
                 button_sprite = Button(data['pos'],'available')
             else:
                 button_sprite = Button(data['pos'],'locked')
             self.buttons.add(button_sprite)            
-    #Ui Testing
-    def ui(self):
-        self.ui_texts = pygame.sprite.Group()
         
     #Controls for Menu
     def get_input(self):
@@ -41,8 +45,9 @@ class Menu:
         if keys[pygame.K_SPACE]:
             print("Space")
             self.create_level(self.current_level)
+    #Ui
+
     #Update cycle
     def run(self):
         self.get_input()
-        self.ui()
         self.buttons.draw(self.display_surface)
