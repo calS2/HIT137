@@ -57,6 +57,7 @@ class Level:
             if sprite.rect.colliderect(player.rect) and sprite.collectable==True:
                self.coins.remove(sprite)
                self.score += 1
+    
     #Level state Controller
     def levelstate(self):
         #check Death State

@@ -24,12 +24,17 @@ class Menu:
 
     def setup_buttons(self):
         self.buttons = pygame.sprite.Group()
+        
         for index, data in enumerate(levels.values()):
             if index <= self.max_level:
                 button_sprite = Button(data['pos'],'available')
             else:
                 button_sprite = Button(data['pos'],'locked')
             self.buttons.add(button_sprite)            
+    
+    def ui(self):
+        self.ui = pygame.sprite.Group()
+        
 
     def get_input(self):
         keys = pygame.key.get_pressed()
@@ -38,4 +43,5 @@ class Menu:
             self.create_level(self.current_level)
     def run(self):
         self.get_input()
+        self.ui()
         self.buttons.draw(self.display_surface)

@@ -6,14 +6,14 @@ from menu import Menu
 class Game:
     def __init__(self):
         self.max_level = 0
-        self.menu = Menu(2,self.max_level,screen,self.create_level)
+        self.menu = Menu(0,self.max_level,screen,self.create_level)
         self.status = 'menu'
         #self.level = Level(0,screen)
-    
+    #Method for entering Level
     def create_level(self, current_level):
-        self.level = Level(current_level, screen,self.create_menu)
+        self.level = Level(self.max_level, screen,self.create_menu)
         self.status = 'level'
-
+#Method for exiting Level
     def create_menu(self, current_level,new_max_level):
         if new_max_level > self.max_level:
             self.max_level = new_max_level
@@ -32,15 +32,6 @@ pygame.init()
 screen = pygame.display.set_mode((screen_width,screen_height))
 clock = pygame.time.Clock()
 game = Game()
-
-#level selection
-currentlevel = 0
-if currentlevel == 1:
-    level_map = level_map1
-elif currentlevel == 2:
-    level_map = level_map2
-elif currentlevel == 3:
-    level_map = level_map1
 
 #level = Level(level_map,screen)
 
