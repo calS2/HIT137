@@ -11,7 +11,7 @@ class Game:
         #self.level = Level(0,screen)
     #Method for entering Level
     def create_level(self, current_level):
-        self.level = Level(self.max_level, screen,self.create_menu)
+        self.level = Level(self.max_level,screen,self.create_menu)
         self.status = 'level'
 
     #Method for exiting Level

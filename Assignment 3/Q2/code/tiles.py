@@ -6,16 +6,15 @@ class Tile(pygame.sprite.Sprite):
         super().__init__()
         if kind == "wall":
             self.image = pygame.image.load('graphics/Tile_36.png').convert_alpha()
-            self.rect = self.image.get_rect(topleft = pos)
+            self.rect = self.image.get_rect(center = pos)
             self.collectable = False
         elif kind == "coin":
             self.image = pygame.image.load('graphics/Coin32.png').convert_alpha()
-            self.rect = self.image.get_rect(center = (pos[0]+32,pos[1]+32))
+            self.rect = self.image.get_rect(center = pos)
             self.collectable = True
         elif kind == "bound":
             self.image = pygame.Surface((64,64))   
-            self.rect = self.image.get_rect(topleft = pos)
-            self.image.fill('black')
+            self.rect = self.image.get_rect(center = pos)
 
     def update(self,x_shift):
         self.rect.x += x_shift

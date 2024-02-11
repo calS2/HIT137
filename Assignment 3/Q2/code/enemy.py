@@ -5,16 +5,15 @@ from random import randint
 class Enemy(pygame.sprite.Sprite):
 	def __init__(self,pos):
 		super().__init__()
-		print("Heya")
 		self.frames = import_folder('graphics/enemy/run')
-		print("Hello World")
 		self.frame_index = 0
 		self.image = self.frames[self.frame_index]
-		self.rect = self.image.get_rect(topleft = pos)
+		self.rect = self.image.get_rect(center = (pos[0]+10,pos[1]+10))
 		self.speed = randint(3,5)
 
 	def move(self):
 		self.rect.x += self.speed
+		print(self.rect)
 
 	def reverse_image(self):
 		if self.speed > 0:

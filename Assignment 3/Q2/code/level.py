@@ -72,6 +72,19 @@ class Level:
             if pygame.sprite.spritecollide(enemy,self.bound,False):
                 enemy.reverse()
 
+##    def enemy_tile_collision(self):
+##        enemy = self.player.sprite
+##        enemy.apply_gravity()
+##
+##        for sprite in self.tiles.sprites():
+##            if sprite.rect.colliderect(enemy.rect):
+##                if enemy.direction.y > 0:
+##                    enemy.rect.bottom = sprite.rect.top
+##                    enemy.direction.y = 0
+##                elif enemy.direction.y < 0:
+##                    enemy.rect.top = sprite.rect.bottom
+##                    enemy.direction.y = 0
+
     def enemy_collisions(self):
         enemy_collisions = pygame.sprite.spritecollide(self.player.sprite,self.enemy,False)
         if enemy_collisions:
@@ -80,14 +93,11 @@ class Level:
                 enemy_top = enemy.rect.top
                 player_bottom = self.player.sprite.rect.bottom
                 if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:
-                    pass
-    ##                self.stomp_sound.play()
-    ##                self.player.sprite.direction.y = -15
-    ##            explosion_sprite = ParticleEffect(enemy.rect.center,'explosion')
-    ##            self.explosion_sprites.add(explosion_sprite)
-    ##                enemy.kill()
-    ##            else:
-    ##                self.player.sprite.get_damage()
+                    self.player.sprite.direction.y = -15
+                    enemy.kill()
+                else:
+                    player = self.player.sprite
+                    player.status = 'dead'
 
 
     #Level state Controller
@@ -157,6 +167,8 @@ class Level:
         self.tiles.draw(self.display_surface)
         self.coins.update(self.world_shift)
         self.coins.draw(self.display_surface)
+        self.bound.update(self.world_shift)
+        self.bound.draw(self.display_surface)
         self.scroll_x()
 
         #UI
@@ -174,7 +186,6 @@ class Level:
         self.bound.update(self.world_shift)
         self.enemy_collision_reverse()
         self.enemy.draw(self.display_surface)
-
         self.enemy_collisions()
 
         #level state

@@ -1,12 +1,12 @@
 tile_size = 64
-screen_height = 1200
+screen_height = 1000
 #screen_width = len(level_map) * tile_size
 screen_width =  28 * tile_size
 
 level_map1 = {'mapdata':[
 '                            ',
 '                            ',
-'        P                   ',
+'        P              BE  B',
 ' XX    XXX              XXX ',
 ' XXX    B  CE    B       XX ',
 ' XX      XXXXXXXX           ',
