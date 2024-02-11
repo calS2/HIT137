@@ -13,7 +13,8 @@ class Game:
     def create_level(self, current_level):
         self.level = Level(self.max_level, screen,self.create_menu)
         self.status = 'level'
-#Method for exiting Level
+
+    #Method for exiting Level
     def create_menu(self, current_level,new_max_level):
         if new_max_level > self.max_level:
             self.max_level = new_max_level
@@ -33,8 +34,6 @@ screen = pygame.display.set_mode((screen_width,screen_height))
 clock = pygame.time.Clock()
 game = Game()
 
-#level = Level(level_map,screen)
-
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -43,7 +42,6 @@ while True:
 
     screen.fill('black')
     game.run()
-    #level.run()
 
     pygame.display.update()
     clock.tick(60)

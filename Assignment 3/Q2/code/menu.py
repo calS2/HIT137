@@ -33,7 +33,7 @@ class Menu:
             self.buttons.add(button_sprite)            
     #Ui Testing
     def ui(self):
-        self.ui = pygame.sprite.Group()
+        self.ui_texts = pygame.sprite.Group()
         
     #Controls for Menu
     def get_input(self):

@@ -72,7 +72,7 @@ class Level:
             print("you are dead")
             self.create_menu(self.currentlevel,0)
             pass
-        if len(self.coins) == 0:
+        if len(self.coins) == 0 or keys[pygame.K_RETURN]:
             #code to go to next level
             self.create_menu(self.currentlevel,self.new_max_level)
             pass
