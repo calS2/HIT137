@@ -1,9 +1,10 @@
+#Small support py for os walks
 from os import walk
 import pygame
 
+#Called for setup of character animations
 def import_folder(path):
     surface_list = []
-
     for _,__,img_file in walk(path):
         for image in img_file:
             full_path = path + '/' + image

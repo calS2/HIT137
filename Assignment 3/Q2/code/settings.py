@@ -1,8 +1,13 @@
+#Setting for Levels
+#tile modifier(dont change)
 tile_size = 64
+
+#Window Size modifiers
 screen_height = 1000
-#screen_width = len(level_map) * tile_size
 screen_width =  20 * tile_size
 
+#Level Maps
+#Level 1
 level_map1 = {'mapdata':[
 '                            ',
 '                            ',
@@ -21,7 +26,7 @@ level_map1 = {'mapdata':[
 'unlock':1,
 'pos':((screen_width/5),400)
  }
-
+#Level 2
 level_map2 = {'mapdata':[
 '                            ',
 '                            ',
@@ -39,7 +44,7 @@ level_map2 = {'mapdata':[
 'unlock':2,
 'pos':((screen_width/5)*2,400)
  }
-
+#Level 3
 level_map3 = {'mapdata':[
 '                            ',
 '                           ',
@@ -60,7 +65,7 @@ level_map3 = {'mapdata':[
 'unlock':3,
 'pos':((screen_width/5*3),400)
  }
-
+#Win Screen
 winning_map = {'mapdata':[
 '                      ',
 '  X       X           ',
@@ -80,7 +85,7 @@ winning_map = {'mapdata':[
 'unlock':4,
 'pos':((screen_width/5*4),400)
  }
-
+#Level Dict
 levels = {
     0:level_map1,
     1:level_map2,
