@@ -6,6 +6,13 @@ from level import Level
 pygame.init()
 screen = pygame.display.set_mode((screen_width,screen_height))
 clock = pygame.time.Clock()
+currentlevel = 2
+if currentlevel == 1:
+    level_map = level_map1
+elif currentlevel == 2:
+    level_map = level_map2
+if currentlevel == 3:
+    level_map = level_map1
 level = Level(level_map,screen)
 
 while True:

@@ -1,6 +1,6 @@
 import pygame
 from tiles import Tile
-from settings import tile_size, screen_width
+from settings import tile_size, screen_width, screen_height
 from player import Player
 
 class Level:
@@ -30,11 +30,12 @@ class Level:
                     player_sprite = Player((x,y))
                     self.player.add(player_sprite)
 
+
+
     def scroll_x(self):
         player = self.player.sprite
         player_x = player.rect.centerx
         direction_x = player.direction.x
-
         if player_x < screen_width / 4 and direction_x < 0:
             self.world_shift = 8
             player.speed = 0
@@ -51,18 +52,25 @@ class Level:
             if sprite.rect.colliderect(player.rect) and sprite.collectable==True:
                self.coins.remove(sprite)
                self.score += 1
-               print(self.score)
-
+    #Level state Controller
     def levelstate(self):
+        self.isdead()
         player = self.player.sprite
         if player.status == 'dead':
-            #code to restart the game
+            print("you are dead")
             pass
         if len(self.coins) == 0:
             #code to go to next level
             pass
         else:
             print("Coins to collect: " + str(len(self.coins)))
+    
+    #Checks if player is below the screen
+    def isdead(self):
+        player = self.player.sprite
+        player_y = player.rect.centery
+        if player_y > screen_height:
+            player.status = 'dead'
 
     def horizontal_movement_collision(self):
         player = self.player.sprite
