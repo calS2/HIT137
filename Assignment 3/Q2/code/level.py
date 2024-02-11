@@ -38,7 +38,7 @@ class Level:
                     self.player.add(player_sprite)
                 if cell == 'E':	
                     enemy_sprite = Enemy(tile_size,x,y)
-                    self.enemy.add(enemy_sprite)
+                    self.enemy.add(enemy_sprite)GIt 
 
 
 
