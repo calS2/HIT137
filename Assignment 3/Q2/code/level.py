@@ -40,7 +40,10 @@ class Level:
                     player_sprite = Player((x,y))
                     self.player.add(player_sprite)
                 if cell == 'E':	
-                    enemy_sprite = Enemy((x,y))
+                    enemy_sprite = Enemy((x,y),"minion")
+                    self.enemy.add(enemy_sprite) 
+                if cell == 'K':	
+                    enemy_sprite = Enemy((x,y),"king")
                     self.enemy.add(enemy_sprite) 
                 if cell == 'B':
                     tile = Tile((x,y),tile_size,"bound")
@@ -72,19 +75,6 @@ class Level:
             if pygame.sprite.spritecollide(enemy,self.bound,False):
                 enemy.reverse()
 
-##    def enemy_tile_collision(self):
-##        enemy = self.player.sprite
-##        enemy.apply_gravity()
-##
-##        for sprite in self.tiles.sprites():
-##            if sprite.rect.colliderect(enemy.rect):
-##                if enemy.direction.y > 0:
-##                    enemy.rect.bottom = sprite.rect.top
-##                    enemy.direction.y = 0
-##                elif enemy.direction.y < 0:
-##                    enemy.rect.top = sprite.rect.bottom
-##                    enemy.direction.y = 0
-
     def enemy_collisions(self):
         enemy_collisions = pygame.sprite.spritecollide(self.player.sprite,self.enemy,False)
         if enemy_collisions:
@@ -94,16 +84,15 @@ class Level:
                 player_bottom = self.player.sprite.rect.bottom
                 if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:
                     self.player.sprite.direction.y = -15
-                    enemy.kill()
+                    enemy.get_hurt()
                 else:
                     player = self.player.sprite
-                    player.status = 'dead'
+                    player.get_damage()
 
 
     #Level state Controller
     def levelstate(self):
         #check Death State
-        self.isdead()
         #Escape Level
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
@@ -121,12 +110,7 @@ class Level:
             #print("Coins to collect: " + str(len(self.coins)))
             pass
     
-    #Checks if player is below the screen
-    def isdead(self):
-        player = self.player.sprite
-        player_y = player.rect.centery
-        if player_y > screen_height:
-            player.status = 'dead'
+
 
     def horizontal_movement_collision(self):
         player = self.player.sprite
@@ -161,6 +145,17 @@ class Level:
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
 
+
+    def hitboxes(self):
+            for enemy in self.enemy.sprites():
+                rect = enemy.rect
+                pygame.draw.rect(self.display_surface,'red',rect,0)
+            for bound in self.bound.sprites():
+                rect = bound.rect
+                pygame.draw.rect(self.display_surface,'blue',rect,0)
+
+
+
     def run(self):
         #level tiles
         self.tiles.update(self.world_shift)
@@ -174,6 +169,9 @@ class Level:
         #UI
         #self.display_surface.blit(self.text_surf,self.text_rect)
 
+        #Hitboxes (readability)
+        self.hitboxes()
+
         #player
         self.player.update()
         self.coin_collection()
@@ -183,7 +181,6 @@ class Level:
 
 		# enemy 
         self.enemy.update(self.world_shift)
-        self.bound.update(self.world_shift)
         self.enemy_collision_reverse()
         self.enemy.draw(self.display_surface)
         self.enemy_collisions()

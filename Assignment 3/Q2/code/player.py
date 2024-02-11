@@ -1,5 +1,6 @@
 import pygame
 from support import import_folder
+from settings import screen_height
 
 class Player(pygame.sprite.Sprite):
     def __init__(self,pos):
@@ -24,6 +25,13 @@ class Player(pygame.sprite.Sprite):
         self.on_left = False
         self.on_right = False
 
+        #heath status
+        self.max_health = 100
+        self.cur_health = 100
+        self.invincible = False
+        self.invincibility_duration = 300
+        self.hurt_time = 0
+
     def import_character_assets(self):
         character_path = "graphics/character2/"
         self.animations = {'idle':[],'run':[],'jump':[]}
@@ -33,7 +41,10 @@ class Player(pygame.sprite.Sprite):
             self.animations[animation] = import_folder(full_path)
 
     def animate(self):
-        animation = self.animations[self.status]
+        if self.status == 'dead':
+            animation = self.animations['idle']
+        else:
+            animation = self.animations[self.status]
 
         #loop over frame index
         self.frame_index += self.animation_speed
@@ -70,8 +81,29 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_SPACE] and self.on_ground:
             self.jump()
 
+    def apply_gravity(self):
+        self.direction.y += self.gravity
+        self.rect.y += self.direction.y
+
+    def jump(self):
+        self.direction.y = self.jump_speed
+    
+    def get_damage(self):
+        if not self.invincible:
+            self.cur_health -= 50
+            self.invincible = True
+            self.hurt_time = pygame.time.get_ticks()
+
+    def invincibility_timer(self):
+        if self.invincible:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.hurt_time >= self.invincibility_duration:
+                self.invincible = False
+
     def get_status(self):
-        if self.direction.y < 0:
+        if self.rect.centery > screen_height or self.cur_health < 0:
+            self.status = 'dead'
+        elif self.direction.y < 0:
             self.status = 'jump'
         elif self.direction.y > 1:
             self.status = 'idle'
@@ -81,15 +113,9 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.status = 'idle'
 
-    def apply_gravity(self):
-        self.direction.y += self.gravity
-        self.rect.y += self.direction.y
-
-    def jump(self):
-        self.direction.y = self.jump_speed
-
     def update(self):
         self.get_input()
+        self.invincibility_timer()
         self.get_status()
         self.animate()
 
