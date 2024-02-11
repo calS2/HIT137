@@ -47,11 +47,9 @@ class Level:
 
     def coin_collection(self):
         player = self.player.sprite
-        print(self.coins.sprites())
         for sprite in self.coins.sprites():
             if sprite.rect.colliderect(player.rect):
-                print('touching')
-                self.coins.sprites().remove(sprite)
+               self.coins.remove(sprite)
 
 
     def horizontal_movement_collision(self):
