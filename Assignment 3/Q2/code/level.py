@@ -2,6 +2,7 @@ import pygame
 from tiles import Tile
 from settings import tile_size, screen_width, screen_height, levels
 from player import Player
+from enemy import Enemy
 
 class Level:
     def __init__(self,currentlevel,surface,create_menu):
@@ -21,7 +22,7 @@ class Level:
         self.tiles = pygame.sprite.Group()
         self.coins = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
-        #Iterate over the map data replacing character with related tiles
+
         for row_index,row in enumerate(layout):
             for col_index,cell in enumerate(row):
                 x = col_index * tile_size
@@ -35,6 +36,9 @@ class Level:
                 if cell == "P":
                     player_sprite = Player((x,y))
                     self.player.add(player_sprite)
+                if cell == 'E':	
+                    enemy_sprite = Enemy(tile_size,x,y)
+                    self.enemy.add(enemy_sprite)
 
 
 
