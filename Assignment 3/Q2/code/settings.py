@@ -1,5 +1,27 @@
+tile_size = 64
+screen_height = 1200
+#screen_width = len(level_map) * tile_size
+screen_width =  28 * tile_size
 
-level_map1 = [
+level_map1 = {'mapdata':[
+'                            ',
+'                            ',
+'        P                   ',
+' XX    XXX              XXX ',
+' XXX       C             XX ',
+' XX      XXXX               ',
+' X    XX                XX  ',
+'      XX            C XXX   ',
+'     XXXX           XXXC    ',
+'    XXXX     C        XXX   ',
+'C XXXXXX    XX    XX  XXXX  ',
+'XXXXXXXX  XXXXXX  XX  XXXXX '],
+'text':'This is level 0',
+'unlock':1,
+'pos':((screen_width/5),400)
+ }
+
+level_map2 = {'mapdata':[
 '                            ',
 '                            ',
 ' C      PC                  ',
@@ -11,23 +33,32 @@ level_map1 = [
 '     XXXX           XXXC    ',
 '    XXXX     C        XXX   ',
 'C XXXXXX    XX    XX  XXXX  ',
-'XXXXXXXX  XXXXXX  XX  XXXXX ']
+'XXXXXXXX  XXXXXX  XX  XXXXX '],
+'text':'This is level 0',
+'unlock':2,
+'pos':((screen_width/5)*2,400)
+ }
 
-level_map2 = [
+level_map3 = {'mapdata':[
 '                            ',
 '                            ',
-'        PC                  ',
+' CC     P                   ',
 ' XX    XXX              XXX ',
-' XXX                     XX ',
+' XXX     CCCC            XX ',
 ' XX      XXXX               ',
 ' X    XX                XX  ',
-'      XX              XXX   ',
-'     XXXX           XXX     ',
-'    XXXX              XXX   ',
-'  XXXXXX    XX    XX  XXXX  ',
-'XXXXXXXX  XXXXXX  XX  XXXXX ']
+'      XX            C XXX   ',
+'     XXXX           XXXC    ',
+'    XXXX     C        XXX   ',
+'C XXXXXX    XX    XX  XXXX  ',
+'XXXXXXXX  XXXXXX  XX  XXXXX '],
+'text':'This is level 0',
+'unlock':3,
+'pos':((screen_width/5*3),400)
+ }
 
-tile_size = 64
-screen_height = 1200
-#screen_width = len(level_map) * tile_size
-screen_width =  28 * tile_size
+levels = {
+    0:level_map1,
+    1:level_map2,
+    2:level_map3,
+}

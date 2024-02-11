@@ -1,14 +1,18 @@
 import pygame
 from tiles import Tile
-from settings import tile_size, screen_width, screen_height
+from settings import tile_size, screen_width, screen_height, levels
 from player import Player
 
 class Level:
-    def __init__(self,level_data,surface):
+    def __init__(self,currentlevel,surface):
         self.score = 0
         # level setup
         self.display_surface = surface
-        self.setup_level(level_data)
+        self.currentlevel = currentlevel
+        level_data = levels[currentlevel]
+        level_content = level_data['mapdata']
+        self.setup_level(level_content)
+        self.new_max_level = level_data['unlock']
         self.world_shift = 0
 
     def setup_level(self,layout):
@@ -58,12 +62,14 @@ class Level:
         player = self.player.sprite
         if player.status == 'dead':
             print("you are dead")
+            
             pass
         if len(self.coins) == 0:
             #code to go to next level
             pass
         else:
-            print("Coins to collect: " + str(len(self.coins)))
+            #print("Coins to collect: " + str(len(self.coins)))
+            pass
     
     #Checks if player is below the screen
     def isdead(self):
