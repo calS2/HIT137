@@ -48,7 +48,7 @@ class Level:
     def coin_collection(self):
         player = self.player.sprite
         for sprite in self.coins.sprites():
-            if sprite.rect.colliderect(player.rect):
+            if sprite.rect.colliderect(player.rect) and sprite.collectable==True:
                self.coins.remove(sprite)
 
 
