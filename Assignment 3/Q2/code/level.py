@@ -17,10 +17,11 @@ class Level:
         self.world_shift = 0
 
     def setup_level(self,layout):
+        #Containers
         self.tiles = pygame.sprite.Group()
         self.coins = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
-
+        #Iterate over the map data replacing character with related tiles
         for row_index,row in enumerate(layout):
             for col_index,cell in enumerate(row):
                 x = col_index * tile_size

@@ -24,7 +24,6 @@ class Player(pygame.sprite.Sprite):
         self.on_left = False
         self.on_right = False
 
-
     def import_character_assets(self):
         character_path = 'Assignment 3\\Q2\\graphics\\character2\\'
         self.animations = {'idle':[],'run':[],'jump':[]}
