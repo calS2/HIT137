@@ -160,40 +160,17 @@ class Level:
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
 
-
-##  def hitboxes(self):
-##          for enemy in self.enemy.sprites():
-##              rect = enemy.rect
-##              pygame.draw.rect(self.display_surface,'red',rect,0)
-##          for bound in self.bound.sprites():
-##              rect = bound.rect
-##              pygame.draw.rect(self.display_surface,'blue',rect,0)
-
-
-
     def run(self):
         #level tiles
-##        self.tiles.update_x(self.world_shift)
-##        self.tiles.update_y(self.world_shift)
-##        self.coins.update_x(self.world_shift)
-##        self.coins.update_y(self.world_shift)
-##        self.bound.update_x(self.world_shift)
-##        self.bound.update_y(self.world_shift)
         self.tiles.update(self.world_shift)
         self.tiles.draw(self.display_surface)
         self.coins.update(self.world_shift)
         self.coins.draw(self.display_surface)
         self.bound.update(self.world_shift)
-        self.bound.update(self.world_shift)
         self.bound.draw(self.display_surface)
         self.scroll_x()
-#        self.scroll_y()
 
-        #UI
-        #self.display_surface.blit(self.text_surf,self.text_rect)
 
-        #Hitboxes (readability)
-        #self.hitboxes()
 
         #player
         self.player.update()
@@ -203,8 +180,6 @@ class Level:
         self.player.draw(self.display_surface)
 
 		# enemy 
-##        self.enemy.update_x(self.world_shift)
-##        self.enemy.update_y(self.world_shift)
         self.enemy.update(self.world_shift)
         self.enemy_collision_reverse()
         self.enemy.draw(self.display_surface)

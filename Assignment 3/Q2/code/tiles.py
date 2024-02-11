@@ -9,7 +9,7 @@ class Tile(pygame.sprite.Sprite):
             self.rect = self.image.get_rect(center = pos)
             self.collectable = False
         elif kind == "coin":
-            self.image = pygame.image.load('graphics/Coin32.png').convert_alpha()
+            self.image = pygame.image.load('graphics/ui/Coin32.png').convert_alpha()
             self.rect = self.image.get_rect(center = pos)
             self.collectable = True
         elif kind == "bound":
@@ -18,6 +18,3 @@ class Tile(pygame.sprite.Sprite):
 
     def update(self,x_shift):
         self.rect.x += x_shift
-
-#    def update_y(self,y_shift):
-#        self.rect.y += y_shift

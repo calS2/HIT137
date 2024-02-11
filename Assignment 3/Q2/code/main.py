@@ -2,13 +2,18 @@ import pygame, sys
 from settings import *
 from level import Level
 from menu import Menu
+from ui import UI
 
 class Game:
     def __init__(self):
         self.max_level = 0
         self.menu = Menu(0,self.max_level,screen,self.create_level)
         self.status = 'menu'
-        #self.level = Level(0,screen)
+
+        #UI setup
+        self.ui = UI(screen)
+
+
     #Method for entering Level
     def create_level(self, current_level):
         self.level = Level(self.max_level,screen,self.create_menu)
