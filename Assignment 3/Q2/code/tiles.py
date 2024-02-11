@@ -8,7 +8,7 @@ class Tile(pygame.sprite.Sprite):
             self.rect = self.image.get_rect(topleft = pos)
         elif kind == "coin":
             self.image = pygame.image.load('Assignment 3\Q2\graphics\Coin32.png').convert_alpha()
-            self.rect = self.image.get_rect(topleft = pos)
+            self.rect = self.image.get_rect(center = (pos[0]+32,pos[1]+32))
             self.collectable = True
         #self.image.fill('grey')
         #self.image = pygame.Surface((size,size))
