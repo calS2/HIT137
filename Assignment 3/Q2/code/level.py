@@ -22,6 +22,8 @@ class Level:
         self.tiles = pygame.sprite.Group()
         self.coins = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
+        self.enemy = pygame.sprite.Group()
+        self.bound = pygame.sprite.Group()
 
         for row_index,row in enumerate(layout):
             for col_index,cell in enumerate(row):
@@ -38,9 +40,10 @@ class Level:
                     self.player.add(player_sprite)
                 if cell == 'E':	
                     enemy_sprite = Enemy(tile_size,x,y)
-                    self.enemy.add(enemy_sprite)GIt 
-
-
+                    self.enemy.add(enemy_sprite) 
+                if cell == 'B':
+                    tile = Tile((x,y),tile_size,"bound")
+                    self.bound.add(tile)
 
     def scroll_x(self):
         player = self.player.sprite
@@ -62,7 +65,30 @@ class Level:
             if sprite.rect.colliderect(player.rect) and sprite.collectable==True:
                self.coins.remove(sprite)
                self.score += 1
-    
+
+    def enemy_collision_reverse(self):
+        for enemy in self.enemy.sprites():
+            if pygame.sprite.spritecollide(enemy,self.bound,False):
+                enemy.reverse()
+
+    def enemy_collisions(self):
+        enemy_collisions = pygame.sprite.spritecollide(self.player.sprite,self.enemy,False)
+        if enemy_collisions:
+            for enemy in enemy_collisions:
+                enemy_center = enemy.rect.center
+                enemy_top = enemy.rect.top
+                player_bottom = self.player.sprite.rect.bottom
+                if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:
+                    pass
+    ##                self.stomp_sound.play()
+    ##                self.player.sprite.direction.y = -15
+    ##            explosion_sprite = ParticleEffect(enemy.rect.center,'explosion')
+    ##            self.explosion_sprites.add(explosion_sprite)
+    ##                enemy.kill()
+    ##            else:
+    ##                self.player.sprite.get_damage()
+
+
     #Level state Controller
     def levelstate(self):
         #check Death State
@@ -138,6 +164,14 @@ class Level:
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
         self.player.draw(self.display_surface)
+
+		# enemy 
+        self.enemy.update(self.world_shift)
+        self.bound.update(self.world_shift)
+        self.enemy_collision_reverse()
+        self.enemy.draw(self.display_surface)
+
+        self.enemy_collisions()
 
         #level state
         self.levelstate()
