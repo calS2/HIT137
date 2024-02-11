@@ -8,12 +8,17 @@ class Game:
         self.max_level = 0
         self.menu = Menu(2,self.max_level,screen,self.create_level)
         self.status = 'menu'
-        self.level = Level(0,screen)
+        #self.level = Level(0,screen)
     
     def create_level(self, current_level):
-        self.level = Level(current_level, screen)
+        self.level = Level(current_level, screen,self.create_menu)
         self.status = 'level'
 
+    def create_menu(self, current_level,new_max_level):
+        if new_max_level > self.max_level:
+            self.max_level = new_max_level
+        self.menu = Menu(current_level,self.max_level,screen,self.create_level)
+        self.status = 'menu'
 
     def run(self):
         if self.status == 'menu':

@@ -4,7 +4,7 @@ from settings import tile_size, screen_width, screen_height, levels
 from player import Player
 
 class Level:
-    def __init__(self,currentlevel,surface):
+    def __init__(self,currentlevel,surface,create_menu):
         self.score = 0
         # level setup
         self.display_surface = surface
@@ -13,6 +13,7 @@ class Level:
         level_content = level_data['mapdata']
         self.setup_level(level_content)
         self.new_max_level = level_data['unlock']
+        self.create_menu = create_menu
         self.world_shift = 0
 
     def setup_level(self,layout):
@@ -58,14 +59,20 @@ class Level:
                self.score += 1
     #Level state Controller
     def levelstate(self):
+        #check Death State
         self.isdead()
+        #Escape Level
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_ESCAPE]:
+            self.create_menu(self.currentlevel,0)
         player = self.player.sprite
         if player.status == 'dead':
             print("you are dead")
-            
+            self.create_menu(self.currentlevel,0)
             pass
         if len(self.coins) == 0:
             #code to go to next level
+            self.create_menu(self.currentlevel,self.new_max_level)
             pass
         else:
             #print("Coins to collect: " + str(len(self.coins)))
