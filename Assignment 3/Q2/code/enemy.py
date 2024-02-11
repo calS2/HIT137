@@ -9,13 +9,16 @@ class Enemy(pygame.sprite.Sprite):
 		self.frame_index = 0
 		self.image = self.frames[self.frame_index]
 		self.rect = self.image.get_rect(center = (pos[0]+10,pos[1]+10))
-		self.speed = randint(3,5)
 		        
-        #heath status
+        #monster status
 		if school == 'minion':
 			self.monster_health = 1
+			self.speed = randint(3,5)
 		elif school == 'king':
 			self.monster_health = 3
+			self.speed = 10
+
+		#health misc
 		self.invincible = False
 		self.invincibility_duration = 300
 		self.hurt_time = 0
@@ -42,7 +45,11 @@ class Enemy(pygame.sprite.Sprite):
 			self.monster_health -= 1
 			self.invincible = True
 			self.hurt_time = pygame.time.get_ticks()
-		return self.monster_health
+			if self.monster_health <= 0:
+				self.status = 'rip'
+			else:
+				self.status = 'alive'
+		return self.status
 
 	def invincibility_timer(self):
 		if self.invincible:
@@ -55,3 +62,4 @@ class Enemy(pygame.sprite.Sprite):
 		self.animate()
 		self.move()
 		self.reverse_image()
+		self.invincibility_timer()

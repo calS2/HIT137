@@ -13,8 +13,11 @@ class Tile(pygame.sprite.Sprite):
             self.rect = self.image.get_rect(center = pos)
             self.collectable = True
         elif kind == "bound":
-            self.image = pygame.Surface((64,64))   
+            self.image = pygame.Surface((64,64))
             self.rect = self.image.get_rect(center = pos)
 
     def update(self,x_shift):
         self.rect.x += x_shift
+
+#    def update_y(self,y_shift):
+#        self.rect.y += y_shift

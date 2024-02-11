@@ -41,10 +41,10 @@ class Level:
                     self.player.add(player_sprite)
                 if cell == 'E':	
                     enemy_sprite = Enemy((x,y),"minion")
-                    self.enemy.add(enemy_sprite) 
+                    self.enemy.add(enemy_sprite)
                 if cell == 'K':	
                     enemy_sprite = Enemy((x,y),"king")
-                    self.enemy.add(enemy_sprite) 
+                    self.enemy.add(enemy_sprite)
                 if cell == 'B':
                     tile = Tile((x,y),tile_size,"bound")
                     self.bound.add(tile)
@@ -57,6 +57,20 @@ class Level:
             self.world_shift = 8
             player.speed = 0
         elif player_x > screen_width * (2 / 3) and direction_x > 0:
+            self.world_shift = -8
+            player.speed = 0
+        else:
+            self.world_shift = 0
+            player.speed = 8
+
+    def scroll_y(self):
+        player = self.player.sprite
+        player_y = player.rect.centery
+        direction_y = player.direction.y
+        if player_y < screen_height * (1 / 3) and direction_y < 0:
+            self.world_shift = 8
+            player.speed = 0
+        elif player_y > screen_width * (2 / 3) and direction_y > 0:
             self.world_shift = -8
             player.speed = 0
         else:
@@ -85,6 +99,8 @@ class Level:
                 if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:
                     self.player.sprite.direction.y = -15
                     enemy.get_hurt()
+                    if enemy.get_hurt() == 'rip':
+                            self.enemy.remove(enemy)
                 else:
                     player = self.player.sprite
                     player.get_damage()
@@ -97,15 +113,14 @@ class Level:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             self.create_menu(self.currentlevel,0)
+        if keys[pygame.K_RETURN]:
+            self.create_menu(self.currentlevel,self.new_max_level)  
         player = self.player.sprite
         if player.status == 'dead':
             print("you are dead")
-            self.create_menu(self.currentlevel,0)
-            pass
-        if len(self.coins) == 0 or keys[pygame.K_RETURN]:
-            #code to go to next level
+            self.create_menu(self.currentlevel,0)       
+        if len(self.coins) == 0 and len(self.enemy) == 0:
             self.create_menu(self.currentlevel,self.new_max_level)
-            pass
         else:
             #print("Coins to collect: " + str(len(self.coins)))
             pass
@@ -146,31 +161,39 @@ class Level:
             player.on_ceiling = False
 
 
-    def hitboxes(self):
-            for enemy in self.enemy.sprites():
-                rect = enemy.rect
-                pygame.draw.rect(self.display_surface,'red',rect,0)
-            for bound in self.bound.sprites():
-                rect = bound.rect
-                pygame.draw.rect(self.display_surface,'blue',rect,0)
+##  def hitboxes(self):
+##          for enemy in self.enemy.sprites():
+##              rect = enemy.rect
+##              pygame.draw.rect(self.display_surface,'red',rect,0)
+##          for bound in self.bound.sprites():
+##              rect = bound.rect
+##              pygame.draw.rect(self.display_surface,'blue',rect,0)
 
 
 
     def run(self):
         #level tiles
+##        self.tiles.update_x(self.world_shift)
+##        self.tiles.update_y(self.world_shift)
+##        self.coins.update_x(self.world_shift)
+##        self.coins.update_y(self.world_shift)
+##        self.bound.update_x(self.world_shift)
+##        self.bound.update_y(self.world_shift)
         self.tiles.update(self.world_shift)
         self.tiles.draw(self.display_surface)
         self.coins.update(self.world_shift)
         self.coins.draw(self.display_surface)
         self.bound.update(self.world_shift)
+        self.bound.update(self.world_shift)
         self.bound.draw(self.display_surface)
         self.scroll_x()
+#        self.scroll_y()
 
         #UI
         #self.display_surface.blit(self.text_surf,self.text_rect)
 
         #Hitboxes (readability)
-        self.hitboxes()
+        #self.hitboxes()
 
         #player
         self.player.update()
@@ -180,6 +203,8 @@ class Level:
         self.player.draw(self.display_surface)
 
 		# enemy 
+##        self.enemy.update_x(self.world_shift)
+##        self.enemy.update_y(self.world_shift)
         self.enemy.update(self.world_shift)
         self.enemy_collision_reverse()
         self.enemy.draw(self.display_surface)
